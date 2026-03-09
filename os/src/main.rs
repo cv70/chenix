@@ -1,7 +1,8 @@
 #![no_main]
 #![no_std]
-#![feature(panic_info_message)]
-mod lang_items;
+
+use panic_halt as _;
+
 mod sbi;
 
 #[macro_use]
@@ -10,7 +11,7 @@ mod console;
 use core::arch::global_asm;
 global_asm!(include_str!("entry.asm"));
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub fn chenix_main() {
     clean_bss();
     println!("Hello chenix!");
@@ -18,7 +19,7 @@ pub fn chenix_main() {
 }
 
 fn clean_bss() {
-    extern "C" {
+    unsafe extern "C" {
         fn sbss();
         fn ebss();
     }
