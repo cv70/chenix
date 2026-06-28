@@ -1,17 +1,13 @@
 use core::fmt::{self, Write};
-use sbi_rt::{console_write, Physical};
+use super::write;
 
 struct Stdout;
+const STDOUT: usize = 1;
 
 impl Write for Stdout {
     fn write_str(&mut self, s: &str) -> fmt::Result {
-        let bytes = s.as_bytes();
-        let ret = console_write(Physical::new(bytes.len(), bytes.as_ptr() as usize, 0));
-        if ret.error == 0 && ret.value == bytes.len() {
-            Ok(())
-        } else {
-            Err(fmt::Error)
-        }
+        write(STDOUT, s.as_bytes());
+        Ok(())
     }
 }
 
