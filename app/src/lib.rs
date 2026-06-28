@@ -22,6 +22,7 @@ pub extern "C" fn _start() -> ! {
     unsafe {
         exit(main());
     }
+    panic!("unreachable after sys_exit!");
 }
 
 fn clear_bss() {
@@ -34,12 +35,16 @@ fn clear_bss() {
     });
 }
 
-use syscall::{sys_write, sys_exit};
+use syscall::*;
 
 pub fn write(fd: usize, buf: &[u8]) -> isize {
     sys_write(fd, buf)
 }
 
-pub fn exit(exit_code: i32) -> ! {
+pub fn exit(exit_code: i32) -> isize {
     sys_exit(exit_code)
+}
+
+pub fn yield_() -> isize {
+    sys_yield()
 }
