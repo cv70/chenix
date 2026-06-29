@@ -21,6 +21,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "361a90feb7004eca4019fb28352a9465666b24f840f5c3cddf0ff13920590b89"
 
 [[package]]
+name = "fdt"
+version = "0.2.0-alpha2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c8ccfb5c9d9425b2191070f0435636f4a9cdfedd107e33b15f861622b222726a"
+
+[[package]]
 name = "lazy_static"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -39,6 +45,7 @@ checksum = "0ceec5bc11778974d1bcb055b18002eba7f4b3518b6a0081b3af5f21666da9ad"
 name = "os"
 version = "0.1.0"
 dependencies = [
+ "fdt",
  "lazy_static",
  "log",
  "riscv",

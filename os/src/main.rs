@@ -13,6 +13,7 @@ use log::*;
 #[macro_use]
 mod console;
 mod config;
+mod device_tree;
 mod lang_items;
 mod loader;
 mod logging;
@@ -20,6 +21,7 @@ mod sbi;
 mod sync;
 pub mod syscall;
 pub mod task;
+mod timer;
 pub mod trap;
 
 global_asm!(include_str!("entry.asm"));
@@ -41,12 +43,15 @@ fn clear_bss() {
 }
 
 #[unsafe(no_mangle)]
-pub fn chenix_main() -> ! {
+pub fn chenix_main(_hart_id: usize, dtb_pa: usize) -> ! {
     clear_bss();
     logging::init();
+    device_tree::init(dtb_pa);
     info!("[kernel] Welcome to Chenix!");
     trap::init();
     loader::load_apps();
+    trap::enable_timer_interrupt();
+    timer::set_next_trigger();
     task::run_first_task();
     panic!("Unreachable in chenix_main!");
 }

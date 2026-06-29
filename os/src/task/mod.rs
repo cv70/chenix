@@ -106,7 +106,7 @@ impl TaskManager {
         inner.tasks[current].task_status = TaskStatus::Exited;
     }
 
-    /// Find next task to run and return app id.
+    /// Find next task to run and return task id.
     ///
     /// In this case, we only return the first `Ready` task in task list.
     fn find_next_task(&self) -> Option<usize> {

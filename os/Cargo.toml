@@ -10,6 +10,7 @@ sbi-rt = { version = "0.0.4" }
 lazy_static = { version = "1.5.0", features = ["spin_no_std"] }
 riscv = { version = "0.16", features = ["s-mode"] }
 log = "0.4"
+fdt = "0.2.0-alpha2"
 
 [profile.release]
 debug = true
